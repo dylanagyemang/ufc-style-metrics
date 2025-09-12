@@ -25,7 +25,7 @@ Win ratios by style: performance of styles across fights
 
 Champion conversion rates: how often fighters of a given style become champions
 
-Cross-source comparison: differences between my dataset and ESPN’s champion data
+Cross-source comparison: differences between observed dataset and ESPN’s champion data
 
 An interactive Streamlit dashboard allows exploration of these metrics, with side-by-side comparisons and summary KPIs.
 
