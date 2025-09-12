@@ -44,26 +44,18 @@ Cross-Source Analysis: champion counts and conversion rates compared across sour
 # Repository Structure
 ufc-style-analysis/
 
-│
 |
 ├── data/
 |
 │   ├── ufc_fighters.xlsx         # UFC dataset
-|
 │   └── ufc_fighters.csv          # Same data in CSV for easier loading
 |
-|
 ├── notebooks/
-|
 │   └── ufc_analysis.ipynb        # Step-by-step analysis in Jupyter
-|
-│
 |
 ├── app/
 |
 │   └── ufc_dashboard.py          # Streamlit dashboard code
-|
-│
 |
 ├── requirements.txt              # Python dependencies
 |
