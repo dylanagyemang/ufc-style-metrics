@@ -63,7 +63,9 @@ ufc-style-analysis/
 Clone the repo and install dependencies:
 
 git clone https://github.com/dylanagyemang/ufc-style-metrics.git
-cd ufc-style-analysis
+
+cd ufc-style-metrics
+
 pip install -r requirements.txt
 
 # Usage
