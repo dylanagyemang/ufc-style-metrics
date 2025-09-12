@@ -70,7 +70,7 @@ pip install -r requirements.txt
 
 # Usage
 Run the dashboard
-streamlit run app/ufc_dashboard.py
+streamlit run app/streamlit_ufc_dashboard_ranges.py
 
 Explore the notebook
 
