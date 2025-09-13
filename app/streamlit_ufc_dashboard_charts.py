@@ -5,8 +5,8 @@ import numpy as np
 import streamlit as st
 import plotly.express as px
 
-st.set_page_config(page_title="UFC Styles Dashboard – Streamlined", layout="wide")
-st.title("🥊 UFC Styles Dashboard — Streamlined")
+st.set_page_config(page_title="UFC Styles Dashboard", layout="wide")
+st.title("UFC Styles Dashboard")
 
 uploaded = st.file_uploader("Upload Excel", type=["xlsx","xls"])
 
