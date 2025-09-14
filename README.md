@@ -17,7 +17,7 @@ Packed Bubble Chart (Area ∝ Representation %): Visualizes style prevalence pro
 
 Key Insights:
 
-Freestyle wrestling and traditional wrestling dominate representation, together accounting for ~60%.
+Freestyle (mixed martial arts with no real style specialty) and wrestling (Collegiate and Freestyle) dominate representation, together accounting for ~60%.
 
 Styles like BJJ, Kickboxing, and Boxing form the next tier of representation.
 
