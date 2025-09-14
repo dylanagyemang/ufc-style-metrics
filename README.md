@@ -2,6 +2,7 @@
 This is a data-driven study of UFC fighting styles, win ratios, and champion conversion rates (Compared with ESPN champion data.)
 
 This project is a data-driven analysis of UFC fighter styles and championship outcomes, built to showcase analytical, data visualization, and dashboarding skills. Using a custom dataset of UFC fighters alongside ESPN’s champion records, the study explores style representation, overall win ratios, and champion conversion rates. An interactive Streamlit dashboard provides side-by-side comparisons between the dataset and ESPN’s records, highlighting where narratives diverge and which fighting styles are most efficient at producing champions.
+![UFC Dashboard](https://github.com/user-attachments/assets/4226246c-2583-4b64-a0ad-ccde60b3789a)
 
 The repository includes:
 
