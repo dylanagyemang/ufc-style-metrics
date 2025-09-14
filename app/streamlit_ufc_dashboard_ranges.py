@@ -62,8 +62,7 @@ def _contrast_text(color: str) -> str:
         return "white"
 
 # -------- Packed bubbles with Top-K labels and legend --------
-def packed_bubbles(df, label_col, value_col, title, palette=None, template="plotly_dark",
-                   size_scale=1.0, top_k_labels=2, show_values=True):
+def packed_bubbles(df, label_col, value_col, title, palette=None, template="plotly_dark", size_scale=1.0, top_k_labels=2, show_values=True, normalize=False, value_format="{val:.1f}%"):
     try:
         import circlify
     except ImportError:
@@ -71,7 +70,10 @@ def packed_bubbles(df, label_col, value_col, title, palette=None, template="plot
         return None
 
     work = df[[label_col, value_col]].copy()
-    work[value_col] = to_percent_series_no_drop(work[value_col])
+    work[value_col] = pd.to_numeric(work[value_col], errors='coerce').replace([np.inf,-np.inf], np.nan).fillna(0.0)
+    if normalize:
+        s = work[value_col].sum()
+        work[value_col] = (work[value_col] / s * 100.0) if s else work[value_col]
     EPS = 1e-6
     work[value_col] = work[value_col].clip(lower=EPS)
     work = work.sort_values(value_col, ascending=False).reset_index(drop=True)
@@ -125,7 +127,7 @@ def packed_bubbles(df, label_col, value_col, title, palette=None, template="plot
 
         if cid in top_ids:
             txt_color = _contrast_text(fill)
-            text = f"{cid}" + (f"<br>{val:.1f}%" if show_values else "")
+            text = f"{cid}" + (f"<br>{value_format.format(val=val)}" if show_values else "")
             fig.add_annotation(
                 x=c.x, y=c.y, text=text, showarrow=False,
                 font=dict(size=max(14, int(12 + r * 26)), color=txt_color, family="Arial Black"),
@@ -176,12 +178,13 @@ if uploaded:
         st.plotly_chart(fig_rep_h, use_container_width=True)
 
     with col2:
-        rep_for_bubbles = pd.DataFrame({"Style": rep_df["Style"], "Value": to_percent_series_no_drop(rep_df["Representation"])})
+        rep_for_bubbles = pd.DataFrame({"Style": rep_bars["Style"], "Value": rep_bars["Representation (%)"]})
         fig_rep_pack = packed_bubbles(
             rep_for_bubbles, "Style", "Value",
-            title="Representation by Style — Packed Bubbles (area ∝ win %)",
+            title="Representation by Style — Packed Bubbles (area ∝ representation %)",
             palette=px.colors.qualitative.Set2, template="plotly_dark",
-            size_scale=size_scale, top_k_labels=topk, show_values=True
+            size_scale=size_scale, top_k_labels=topk, show_values=True,
+            normalize=False, value_format="{val:.1f}%"
         )
         st.plotly_chart(fig_rep_pack, use_container_width=True)
 
@@ -202,12 +205,13 @@ if uploaded:
         st.plotly_chart(fig_win_h, use_container_width=True)
 
     with col4:
-        win_for_bubbles = pd.DataFrame({"Style": win_df["Style"], "Value": to_percent_series_no_drop(win_df["Win Ratio"])})
+        win_for_bubbles = pd.DataFrame({"Style": win_df["Style"], "Value": win_df["Win Ratio"]})
         fig_win_pack = packed_bubbles(
             win_for_bubbles, "Style", "Value",
-            title="Win Ratio by Style — Packed Bubbles (area ∝ win %)",
+            title="Win Ratio by Style — Packed Bubbles (area ∝ win value)",
             palette=px.colors.qualitative.Set3, template="plotly_dark",
-            size_scale=size_scale, top_k_labels=topk, show_values=True
+            size_scale=size_scale, top_k_labels=topk, show_values=True,
+            normalize=False, value_format="{val:.2f}"
         )
         st.plotly_chart(fig_win_pack, use_container_width=True)
 
@@ -248,7 +252,8 @@ if uploaded:
             conv_obs_bubbles, "Style", "Value",
             title="Conversion — Observed (Bubble area ∝ %)",
             palette=px.colors.qualitative.Dark2, template="plotly_dark",
-            size_scale=size_scale, top_k_labels=topk, show_values=True
+            size_scale=size_scale, top_k_labels=topk, show_values=True,
+            normalize=False, value_format="{val:.1f}%"
         )
         st.plotly_chart(fig_conv_obs, use_container_width=True)
 
@@ -257,7 +262,8 @@ if uploaded:
             conv_espn_bubbles, "Style", "Value",
             title="Conversion — ESPN (Bubble area ∝ %)",
             palette=px.colors.qualitative.Pastel1, template="plotly_dark",
-            size_scale=size_scale, top_k_labels=topk, show_values=True
+            size_scale=size_scale, top_k_labels=topk, show_values=True,
+            normalize=False, value_format="{val:.1f}%"
         )
         st.plotly_chart(fig_conv_espn, use_container_width=True)
 
