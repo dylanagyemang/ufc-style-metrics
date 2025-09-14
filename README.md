@@ -106,13 +106,12 @@ Cross-Source Analysis: champion counts and conversion rates compared across sour
 
 # Installation
 
-Clone the repo and install dependencies:
-
+**Clone the repo and install dependencies:**
+```bash
 git clone https://github.com/dylanagyemang/ufc-style-metrics.git
-
 cd ufc-style-metrics
-
 pip install -r requirements.txt
+```
 
 # Usage
 Run the dashboard
